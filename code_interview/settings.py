@@ -5,7 +5,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = False
-ALLOWED_HOSTS = ['ci-backend-staging.herokuapp.com']
+ALLOWED_HOSTS = ['ci-backend-staging.herokuapp.com',
+                 'codeinterview-backend.herokuapp.com']
 
 # Logging
 
@@ -109,7 +110,9 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'https://codeinterview.netlify.com'  # front-end
+    # front-end
+    'https://codeinterview.netlify.app',
+    'https://staging--codeinterview.netlify.app'
 ]
 
 # REST framework
@@ -129,7 +132,7 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {}
 }
-db_from_env = dj_database_url.config(conn_max_age=600)
+db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
 # Password validation

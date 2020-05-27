@@ -13,7 +13,7 @@ LogEntryType = LogEntry.EntryType
 
 
 class RoomConsumer(JsonWebsocketConsumer):
-    ##### WebSocket event handlers
+    # WebSocket event handlers
 
     def connect(self):
         self.room_id = self.scope['url_route']['kwargs']['room_id']
@@ -47,9 +47,17 @@ class RoomConsumer(JsonWebsocketConsumer):
             try:
                 return handler(content)
             except Exception as e:
-                self.send_json({'error': f'[{e.__class__.__name__}] {e}'})
+                self.send_json({
+                    'type': 'event',
+                    'event': 'error',
+                    'data': f'[{e.__class__.__name__}] {e}'
+                })
                 return
-        self.send_json({'error': 'Command not found.'})
+        self.send_json({
+            'type': 'event',
+            'event': 'error',
+            'data': 'Command not found.'
+        })
 
     def disconnect(self, code):
         async_to_sync(self.channel_layer.group_discard)(self.group_name,
@@ -64,7 +72,7 @@ class RoomConsumer(JsonWebsocketConsumer):
                 room.participants -= 1
                 room.save()
 
-    ##### ORM helper methods
+    # ORM helper methods
 
     def create_log_entry(self, content, type, announce=True):
         entry = LogEntry(room=self.room_object,
@@ -98,9 +106,10 @@ class RoomConsumer(JsonWebsocketConsumer):
         request.save()
 
         if create_entry:
-            self.create_log_entry(f'{self.username} made a run request', LogEntryType.USER_RUN)
+            self.create_log_entry(
+                f'{self.username} made a run request', LogEntryType.USER_RUN)
 
-    ##### Command handlers
+    # Command handlers
 
     def get_handler(self, command):
         handlers = {
@@ -138,7 +147,7 @@ class RoomConsumer(JsonWebsocketConsumer):
         message = f'{self.username} left the video call'
         self.create_log_entry(message, type=LogEntryType.USER_LEAVE_CALL)
 
-    ##### Event handlers
+    # Event handlers
 
     def event_log_entry(self, event):
         entry = event['entry']
@@ -150,7 +159,7 @@ class RoomConsumer(JsonWebsocketConsumer):
             'data': entry,
         })
 
-    ##### Helper methods
+    # Helper methods
 
     @classmethod
     def encode_json(cls, obj):
