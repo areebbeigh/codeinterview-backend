@@ -1,1 +1,1 @@
-web: gunicorn code_interview.wsgi --log-file -
+web: gunicorn code_interview.wsgi --log-file=-
