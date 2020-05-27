@@ -2,14 +2,14 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'j%4s9n79np!^nrq3&h4=6a8r2c^ex9s)gg3s(zsx((o@qll2yj'
-DEBUG = True
+SECRET_KEY = os.environ['SECRET_KEY']
+DEBUG = False
 ALLOWED_HOSTS = []
 
 # Celery config
 
-CELERY_BROKER_URL = 'pyamqp://'
-CELERY_RESULT_BACKEND = 'redis://'
+CELERY_BROKER_URL = os.environ['REDIS_URL']
+CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
 
 CELERY_TASK_ROUTES = {
     # WARNING: room.tasks still need explicit queue name when chaining.
@@ -70,25 +70,21 @@ ASGI_APPLICATION = "code_interview.routing.application"
 
 ##### Channels-specific settings
 
-redis_url = 'redis://'
+redis_url = os.environ['REDIS_URL']
 
 # Channel layer definitions
 # http://channels.readthedocs.io/en/latest/topics/channel_layers.html
 CHANNEL_LAYERS = {
-    # "default": {
-    #     # This example app uses the Redis channel layer implementation channels_redis
-    #     "BACKEND": "channels_redis.core.RedisChannelLayer",
-    #     "CONFIG": {
-    #         "hosts": [redis_url,],
-    #     },
-    # },
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [redis_url,],
+        },
+    },
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080' # front-end
+    'https://codeinterview.netlify.com' # front-end
 ]
 
 # REST framework
@@ -104,14 +100,13 @@ REST_FRAMEWORK = {
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': {}
 }
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -150,3 +145,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
