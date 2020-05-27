@@ -1,3 +1,4 @@
+import dj_database_url
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'whitenoise.runserver_nostatic',
     'rest_framework',
     'django_filters',
     'channels',
@@ -43,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'code_interview.urls'
@@ -68,7 +71,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'code_interview.wsgi.application'
 ASGI_APPLICATION = "code_interview.routing.application"
 
-##### Channels-specific settings
+# Channels-specific settings
 
 redis_url = os.environ['REDIS_URL']
 
@@ -78,13 +81,13 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [redis_url,],
+            "hosts": [redis_url, ],
         },
     },
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'https://codeinterview.netlify.com' # front-end
+    'https://codeinterview.netlify.com'  # front-end
 ]
 
 # REST framework
@@ -100,7 +103,6 @@ REST_FRAMEWORK = {
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-import dj_database_url
 
 DATABASES = {
     'default': {}
@@ -145,4 +147,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'rooms/static'),
+]
