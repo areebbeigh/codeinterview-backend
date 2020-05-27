@@ -1,0 +1,5 @@
+.vscode
+*.sqlite3
+*.py[co]
+*.mo
+*~
