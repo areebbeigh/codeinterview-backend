@@ -7,6 +7,28 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = False
 ALLOWED_HOSTS = ['ci-backend-staging.herokuapp.com']
 
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
+
 # Celery config
 
 CELERY_BROKER_URL = os.environ['REDIS_URL']
