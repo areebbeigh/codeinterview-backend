@@ -23,4 +23,4 @@ Related repos:
 
 [codeinterview-frontend](https://github.com/areebbeigh/codeinterview-frontend)
 
-[codeinterview-sandbox](https://github.com/areebbeigh/codeinterview-frontend)
+[codeinterview-sandbox](https://github.com/areebbeigh/codeinterview-sandbox)
