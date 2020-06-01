@@ -11,6 +11,6 @@ CodeInterview is a fun self-learning project. You can check it out [here](https:
 - P2P video confrencing.
 - Code execution in any of the supported languages.
 
-## Architechure
+## Architecture diagram
 
 ![Website architecture diagram](https://github.com/areebbeigh/codeinterview-backend/blob/master/diagram.png?raw=true)
