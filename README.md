@@ -14,3 +14,7 @@ CodeInterview is a fun self-learning project. You can check it out [here](https:
 ## Architecture diagram
 
 ![Website architecture diagram](https://github.com/areebbeigh/codeinterview-backend/blob/master/diagram.png?raw=true)
+
+## Contributing
+
+Create an issue regarding your suggestion/idea/bug and we can pick it up from there.
