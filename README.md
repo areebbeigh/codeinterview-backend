@@ -18,3 +18,9 @@ CodeInterview is a fun self-learning project. You can check it out [here](https:
 ## Contributing
 
 Create an issue regarding your suggestion/idea/bug and we can pick it up from there.
+
+Related repos:
+
+[codeinterview-frontend](https://github.com/areebbeigh/codeinterview-frontend)
+
+[codeinterview-sandbox](https://github.com/areebbeigh/codeinterview-frontend)
