@@ -5,6 +5,13 @@ CodeInterview is a fun self-learning project. You can check it out [here](https:
   <img src="https://raw.githubusercontent.com/areebbeigh/codeinterview-frontend/master/src/assets/images/demo.png?token=ADURWHBSJK3G6CC27WZXHNS63WQ6A" width="85%" />
 </p>
 
+## Related repos:
+
+[codeinterview-frontend](https://github.com/areebbeigh/codeinterview-frontend)
+
+[codeinterview-sandbox](https://github.com/areebbeigh/codeinterview-sandbox)
+
+
 ## Features:
 
 - Realtime p2p collaborative code editing.
@@ -17,10 +24,4 @@ CodeInterview is a fun self-learning project. You can check it out [here](https:
 
 ## Contributing
 
-Create an issue regarding your suggestion/idea/bug and we can pick it up from there.
-
-Related repos:
-
-[codeinterview-frontend](https://github.com/areebbeigh/codeinterview-frontend)
-
-[codeinterview-sandbox](https://github.com/areebbeigh/codeinterview-sandbox)
+Create an issue regarding your suggestion/idea/bug and we can pick it up from there :).
