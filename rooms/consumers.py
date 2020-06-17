@@ -62,11 +62,11 @@ class RoomConsumer(JsonWebsocketConsumer):
     def disconnect(self, code):
         async_to_sync(self.channel_layer.group_discard)(self.group_name,
                                                         self.channel_name)
-        self.create_log_entry(f'{self.username} left the room',
-                              LogEntryType.USER_LEAVE)
         # This won't be called if the server just crashed or restarted.
         # TODO: Should this be in __del__() instead?
         if self.room_exists:
+            self.create_log_entry(f'{self.username} left the room',
+                                  LogEntryType.USER_LEAVE)
             with transaction.atomic():
                 room = self.room_object_locked()
                 room.participants -= 1
