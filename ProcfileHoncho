@@ -1,0 +1,2 @@
+celeryworker: celery worker -A code_interview -l info -Q callbacks,celery_beat -c 1
+celerybeat: celery -A code_interview beat -l info

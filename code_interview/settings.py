@@ -24,7 +24,7 @@ CELERY_BEAT_SCHEDULE = {
     'delete_rooms': {
         'task': 'rooms.tasks.delete_rooms',
         'schedule': crontab(minute='*/1'),
-        'options': {'queue' : 'callbacks'},
+        'options': {'queue' : 'celery_beat'},
     },
 }
 
