@@ -1,5 +1,7 @@
 import os
 
+from celery.schedules import crontab
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'j%4s9n79np!^nrq3&h4=6a8r2c^ex9s)gg3s(zsx((o@qll2yj'
@@ -16,6 +18,14 @@ CELERY_TASK_ROUTES = {
     # see rooms.signals.dispatch_run_task. Help?
     'rooms.tasks.*': {'queue': 'callbacks'},
     'tasks.sandbox.run_user_code': {'queue': 'sandbox'}
+}
+# Comment out to disable auto-deletion
+CELERY_BEAT_SCHEDULE = {
+    'delete_rooms': {
+        'task': 'rooms.tasks.delete_rooms',
+        'schedule': crontab(minute='*/1'),
+        'options': {'queue' : 'callbacks'},
+    },
 }
 
 # Application definition

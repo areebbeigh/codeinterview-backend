@@ -50,10 +50,12 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = (
         'room_id',
         'participants',
+        'created',
     )
     readonly_fields = (
         'room_id',
         'participants',
+        'created',
     )
     ordering = ('-participants', )
 

@@ -1,10 +1,11 @@
 import json
+from datetime import datetime, timedelta
 
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
 from celery import shared_task
-from rooms.models import RunRequest, LogEntry
+from rooms.models import RunRequest, LogEntry, Room
 
 RequestStatus = RunRequest.RequestStatus
 LogEntryType = LogEntry.EntryType
@@ -50,3 +51,13 @@ def save_run_output(result, request_id):
             'entry': entry.to_dict(),
         },
     )
+
+
+@shared_task
+def delete_rooms():
+    """Deletes all the rooms that are empty and more than 5 minutes old"""
+    rooms = Room.objects.filter(participants=0)
+    delta = timedelta(minutes=5)
+    for r in rooms:
+        if datetime.now(r.created.tzinfo) - r.created >= delta:
+            r.delete()

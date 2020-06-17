@@ -62,6 +62,7 @@ class Room(models.Model):
     # in a JSONField for every room
     # metadata = JSONField()
     participants = models.IntegerField(default=0, auto_created=True)
+    created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'Room ({self.room_id})'
