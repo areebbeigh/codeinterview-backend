@@ -25,7 +25,3 @@ CodeInterview is a fun self-learning project. You can check it out [here](https:
 ## Contributing
 
 Create an issue regarding your suggestion/idea/bug and we can pick it up from there :).
-
-## Support
-
-If you like this project, maybe consider [donating :heart:](https://donorbox.org/donate-to-codeinterview?default_interval=o)
